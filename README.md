@@ -126,9 +126,12 @@ Then int (4 bytes)
 Final Size = 8 bytes
 
 ## Why Empty Class Have size of 1 Byte in C++?
-class A {};
+class A {
 
-int main() {
+};
+
+int main() 
+{
     cout << sizeof(A);
 }
 
