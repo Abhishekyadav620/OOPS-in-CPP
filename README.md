@@ -1,10 +1,11 @@
 # OOPS-in-CPP
 This repository contains my daily learning of OOPS in C++.
-## Day 1
+
 ## What is OOPS?
 It is an approach or programming pattern where the program are structured around the object rather than function or logic.
 How to access data members from a class??
-class student{
+class student
+{
 public:
 string name,
 int age,
@@ -138,5 +139,245 @@ int main()
 output:1 byte
 ## Reason:
 Every object must occupy at least 1 byte so that it has unique identity in memory
+
+### Constructor
+-> Constructor is a special function that is invoked automatically at the time the object is created.
+-> Constructor does not have any return type
+-> Constructor should be of same name as of class name
+-> Constructor is used to initialize the value
+
+eg:
+
+class Customer
+{
+    public:
+    string name;
+    int account_number;
+    int balance;
+    
+    Customer()
+    {
+        cout<<"Contructor is called";
+    }
+};
+
+int main()
+{
+    Customer C;
+    
+}
+## Types of constructor
+# 1.Default Constructor:
+Constructor that takes no argument and is used to initialize the object with the default value.
+#include <iostream>
+using namespace std;
+
+class Customer 
+{
+public:
+    string name = "Abhi";
+    int account_number = 2020202020;
+    int balance = 1111111;
+
+    // Default Constructor
+    Customer() 
+    {
+        cout << "Name is: " << name 
+             << " Account Number is: " << account_number 
+             << " Balance is: " << balance;
+    }
+};
+
+int main() {
+    Customer C;   // default constructor called
+}
+
+# 2.Parameterized Constructor
+  A constructor that takes arguments to initialize object values.
+  #include <iostream>
+using namespace std;
+
+class Customer 
+{
+public:
+    string name;
+    long long account_number;
+    int balance;
+
+    Customer(string name, long long account_number, int balance) \
+    {
+        this->name = name;
+        this->account_number = account_number;
+        this->balance = balance;
+    }
+
+    void display() 
+    {
+        cout << "Name: " << name << endl;
+        cout << "Account Number: " << account_number << endl;
+        cout << "Balance: " << balance << endl;
+    }
+};
+
+int main() {
+    Customer C("Katrina", 2222222222, 1000000000);
+    C.display();
+}
+
+# what does this keyword do??
+This keyword store and point to the address of the object for which it was created.
+
+## Copy Constructor
+A constructor which is used to initialize the object of one class using another object of same class.
+Copy Constructor is created by default.If we are creating copy constructor the we must pass the refrence so that it could easily refer to constructor in which we have to copy.
+#include <iostream>
+using namespace std;
+
+class Customer 
+{
+public:
+    string name;
+    int account_number;
+    int balance;
+
+    // Parameterized Constructor
+    Customer(string name, int account_number, int balance)
+    {
+        this->name = name;
+        this->account_number = account_number;
+        this->balance = balance;
+    }
+
+    // Copy Constructor
+    Customer(Customer &B) 
+    {
+        name = B.name;
+        account_number = B.account_number;
+        balance = B.balance;
+    }
+
+    void display() 
+    {
+        cout << "Name: " << name << endl;
+        cout << "Account Number: " << account_number << endl;
+        cout << "Balance: " << balance << endl;
+    }
+};
+
+int main()
+{
+    Customer C("Katrina", 222222222, 1000000000);
+
+    Customer C2(C);   
+
+    C2.display();
+}
+
+# Contructor overloading
+Multiple constructor within the same class but with different parameter.
+
+#include <iostream>
+using namespace std;
+
+class Student {
+public:
+    string name;
+    int age;
+
+   
+    Student() {
+        name = "Unknown";
+        age = 0;
+    }
+
+  
+    Student(string n) {
+        name = n;
+        age = 0;
+    }
+
+  
+    Student(string n, int a) {
+        name = n;
+        age = a;
+    }
+
+    void display() {
+        cout << "Name: " << name << ", Age: " << age << endl;
+    }
+};
+
+int main() {
+    Student s1;                
+    Student s2("Abhishek");     
+    Student s3("Rahul", 21);    
+
+    s1.display();
+    s2.display();
+    s3.display();
+}
+
+### Destructor
+Destructor is an instance member that is invoked automatically when the object is to be destroyed
+#include <iostream>
+using namespace std;
+
+class Student {
+public:
+    Student() {
+        cout << "Constructor called";
+    }
+
+    ~Student() {
+        cout << "Destructor called\n";
+    }
+};
+
+int main() {
+    Student s1;
+}
+
+Destructor free up the heap memory or dynamically allocated memory.
+
+### Calling order of Constructor And Destructor
+
+Constructor → called in same order as object creation
+Destructor → called in reverse order
+
+#include <iostream>
+using namespace std;
+
+class A {
+public:
+    A() {
+        cout << "Constructor A\n";
+    }
+    ~A() {
+        cout << "Destructor A\n";
+    }
+};
+
+class B {
+public:
+    B() {
+        cout << "Constructor B\n";
+    }
+    ~B() {
+        cout << "Destructor B\n";
+    }
+};
+
+int main() {
+    A obj1;
+    B obj2;
+}
+
+output: Constructor A
+Constructor B
+Destructor B
+Destructor A
+
+
+
 
 
