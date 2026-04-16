@@ -377,6 +377,85 @@ Constructor B
 Destructor B
 Destructor A
 
+### Static data member
+-> They are attribute of class or class member
+-> They are declared using static keyword
+->only one copy of that variable or member is created to the entire class and shared by all object
+
+# Syntax:
+Data_type class_name :: variable_name 
+
+
+#include <iostream>
+using namespace std;
+
+class Customer
+{
+    public:
+    static int total_customer;
+    string name;
+    int roll_no;
+    Customer(string name,int roll_no)
+    {
+        this->name=name;
+        this->roll_no=roll_no;
+        total_customer++;
+    }
+    void display()
+    {
+        cout<<"Name is:"<<name<<" Roll_No:"<<roll_no<<endl;
+        cout<<total_customer<<endl;
+        
+    }
+};
+int Customer::total_customer=0;
+
+int main()
+{
+    Customer c1("Shreya",49);
+    Customer c2("Abhi",2);
+    c1.display();
+    c2.display();
+    Customer c3("Manish",4);
+    c3.display();
+    c2.display();
+}
+
+## Static function
+A function that belongs to the object not to the class.
+-> Does not need an object to call
+
+eg:class_name :: function_name;
+
+#include <iostream>
+using namespace std;
+
+class Student {
+public:
+    static void show() {
+        cout << "This is a static function";
+    }
+};
+
+int main() {
+    Student::show();  
+}
+
+### Encapsulation
+Encapsulation is the process of binding data and functions together and restricting direct access to data using access specifiers.
+Restricting direct access to data.
+It is also called data hiding
+
+
+### Abstraction
+The process of showing only the essential information to the user and hiding the internal Implementation
+In C++ using:
+Classes
+Access specifiers (private, public)
+Abstract classes (advanced)
+
+
+
 
 
 
