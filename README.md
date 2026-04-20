@@ -454,6 +454,335 @@ Classes
 Access specifiers (private, public)
 Abstract classes (advanced)
 
+### Inheritance
+The process of inheriting the property and characteristic of a parent class(base class) to a child class(sub class).
+
+| Modifier  | Outside Class | Same Class | Derived Class |
+|-----------|--------------|------------|---------------|
+| Public    | Yes          | Yes        | Yes           |
+| Protected | No           | Yes        | Yes           |
+| Private   | No           | Yes        | No            |
+
+## Strictness in modifier
+Private>Protected>Public
+
+| Base Class Member | Inheritance Type | Access in Derived Class |
+|-------------------|-----------------|-------------------------|
+| Public            | Public          | Public                  |
+| Public            | Private         | Private                 |
+| Public            | Protected       | Protected               |
+| Protected         | Public          | Protected               |
+| Protected         | Protected       | Protected               |
+| Protected         | Private         | Private                 |
+| Private           | Any             | Not Accessible          |
+
+# Example how can we inherit the property 
+#include <iostream>
+using namespace std;
+class Human
+{
+    public:
+    string name;
+    int age;
+    int wt;
+};
+class Student: public Human
+{
+   
+    int roll_number;
+    int fees;
+};
+int main()
+{
+    Student A;
+    A.roll_number=6;
+    
+}
+
+
+# Example 2:
+That means:
+
+protected members of Human become private inside Student
+They are still accessible inside Student class, which is why your code works
+
+#include <iostream>
+using namespace std;
+
+class Human {
+protected:
+    string religion, color;   // protected
+    string name;              // protected
+    int age, weight;          // protected
+};
+
+class Student : private Human {
+private:
+    int roll_number, fees;
+
+public:
+    Student(string name, int age, int weight, int roll_number) {
+        this->name = name;
+        this->age = age;
+        this->weight = weight;
+        this->roll_number = roll_number;
+    }
+
+    void display() {
+        cout << "Name: " << name << endl;
+        cout << "Age: " << age << endl;
+        cout << "Weight: " << weight << endl;
+        cout << "Roll Number: " << roll_number << endl;
+    }
+};
+
+int main() {
+    Student A("Rohit", 18, 60, 23);
+    A.display();
+    return 0;
+}
+
+## Types of Inheritance
+# Single Inheritance
+Single inheritance means one derived (child) class inherits from one base (parent) class.
+#include <iostream>
+using namespace std;
+
+
+class Animal {
+public:
+    void eat() {
+        cout << "Animal is eating" << endl;
+    }
+};
+
+
+class Dog : public Animal {
+public:
+    void bark() {
+        cout << "Dog is barking" << endl;
+    }
+};
+
+int main() {
+    Dog d;
+    d.eat();   // inherited function
+    d.bark();  // own function
+    return 0;
+}
+Output :Base class constructor called
+Derived class constructor called
+# Call order of constructor
+Base class constructor runs first, then derived class constructor
+eg
+#include <iostream>
+using namespace std;
+
+class A {
+public:
+    A() { cout << "A constructor\n"; }
+};
+
+class B {
+public:
+    B() { cout << "B constructor\n"; }
+};
+
+class C : public A, public B {
+public:
+    C() { cout << "C constructor\n"; }
+};
+
+int main() {
+    C obj;
+}
+
+Output: A constructor
+        B constructor
+        C constructor
+
+#include <iostream>
+using namespace std;
+
+class A {
+public:
+    A(int x) { cout << "A: " << x << endl; }
+};
+
+class B {
+public:
+    B(int y) { cout << "B: " << y << endl; }
+};
+
+class C : public A, public B {
+public:
+    C() : B(20), A(10) {   // order written here is different!
+        cout << "C constructor" << endl;
+    }
+};
+
+int main() {
+    C obj;
+}
+
+Output:
+A: 10
+B: 20
+C constructor
+
+#include <iostream>
+using namespace std;
+
+class A {
+public:
+    A(int x) { cout << "A: " << x << endl; }
+};
+
+class B {
+public:
+    B(int y) { cout << "B: " << y << endl; }
+};
+
+class C : public A, public B {
+public:
+    C() : B(20), A(10) {   // order written here is different! no matter it will continue i the order it is inheriting the property
+        cout << "C constructor" << endl;
+    }
+};
+
+int main() {
+    C obj;
+}
+
+output:
+B: 20
+A: 10
+C constructor
+
+## MultiLevel Inheritance
+Multilevel inheritance means a class is derived from another derived class, forming a chain.
+
+#include <iostream>
+using namespace std;
+
+// Base class
+class Animal {
+public:
+    void eat() {
+        cout << "Animal is eating" << endl;
+    }
+};
+
+// Derived class 1 (inherits Animal)
+class Dog : public Animal {
+public:
+    void bark() {
+        cout << "Dog is barking" << endl;
+    }
+};
+
+// Derived class 2 (inherits Dog)
+class Puppy : public Dog {
+public:
+    void weep() {
+        cout << "Puppy is weeping" << endl;
+    }
+};
+
+int main() {
+    Puppy p;
+
+    p.eat();   // from Animal
+    p.bark();  // from Dog
+    p.weep();  // own function
+
+    return 0;
+}
+
+# Multiple Inheritance
+Multiple inheritance means a class inherits from more than one base (parent) class.
+#include <iostream>
+using namespace std;
+
+// Base class 1
+class Father {
+public:
+    void showFather() {
+        cout << "This is Father class" << endl;
+    }
+};
+
+// Base class 2
+class Mother {
+public:
+    void showMother() {
+        cout << "This is Mother class" << endl;
+    }
+};
+
+// Derived class
+class Child : public Father, public Mother {
+public:
+    void showChild() {
+        cout << "This is Child class" << endl;
+    }
+};
+
+int main() {
+    Child c;
+
+    c.showFather(); // from Father
+    c.showMother(); // from Mother
+    c.showChild();  // own function
+
+    return 0;
+}
+
+# Hierarchical inheritance
+Hierarchical inheritance means multiple derived (child) classes inherit from the same base (parent) class.
+#include <iostream>
+using namespace std;
+
+// Base class
+class Animal {
+public:
+    void eat() {
+        cout << "Animal is eating" << endl;
+    }
+};
+
+// Derived class 1
+class Dog : public Animal {
+public:
+    void bark() {
+        cout << "Dog is barking" << endl;
+    }
+};
+
+// Derived class 2
+class Cat : public Animal {
+public:
+    void meow() {
+        cout << "Cat is meowing" << endl;
+    }
+};
+
+int main() {
+    Dog d;
+    Cat c;
+
+    d.eat();   // from Animal
+    d.bark();  // Dog's own
+
+    c.eat();   // from Animal
+    c.meow();  // Cat's own
+
+    return 0;
+}
+
+        
+
+
 
 
 
