@@ -2,7 +2,7 @@
 This repository contains my daily learning of OOPS in C++.
 
 ## What is OOPS?
-It is an approach or programming pattern where the program are structured around the object rather than function or logic..
+It is an approach or programming pattern where the program are structured around the object rather than function or logic.
 How to access data members from a class?
 class student
 {
